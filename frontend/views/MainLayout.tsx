@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { defaultState, LocationContext, reducer } from './locationStore.js';
 import views from './views.js';
 import { Button } from '@hilla/react-components/Button.js';

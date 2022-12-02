@@ -5,8 +5,12 @@ import com.example.application.repositories.BookmarkRepository;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
 import dev.hilla.Nonnull;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 
 import java.util.List;
+
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.contains;
 
 @Endpoint
 @AnonymousAllowed
@@ -22,8 +26,19 @@ public class BookmarkEndpoint {
         return bookmarkRepository.findById(bookmarkId).orElse(null);
     }
 
-    public @Nonnull List<@Nonnull Bookmark> search() {
-        return bookmarkRepository.findAll();
+    public @Nonnull List<@Nonnull Bookmark> search(String query) {
+        Bookmark exampleBookmark = new Bookmark();
+        exampleBookmark.setUrl(query);
+        exampleBookmark.setTitle(query);
+        exampleBookmark.setDescription(query);
+        ExampleMatcher matcher = ExampleMatcher.matchingAny()
+                .withIgnoreCase("url", "title", "description")
+                .withMatcher("url", contains())
+                .withMatcher("title", contains())
+                .withMatcher("description", contains());
+        Example<Bookmark> example = Example.of(exampleBookmark, matcher);
+
+        return bookmarkRepository.findAll(example);
     }
 
     public @Nonnull Bookmark save(@Nonnull Bookmark bookmark) {
