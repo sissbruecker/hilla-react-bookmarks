@@ -3,6 +3,7 @@ import { BookmarkEndpoint } from 'Frontend/generated/endpoints';
 import Bookmark from 'Frontend/generated/com/example/application/entities/Bookmark';
 import { BookmarkItem } from 'Frontend/views/list/BookmarkItem';
 import { TextField } from '@hilla/react-components/TextField.js';
+import { Notification } from '@hilla/react-components/Notification.js';
 
 export default function ListView() {
   const [query, setQuery] = useState('');
@@ -15,6 +16,7 @@ export default function ListView() {
   const handleDelete = async (bookmark: Bookmark) => {
     await BookmarkEndpoint.remove(bookmark.id!);
     BookmarkEndpoint.search(query).then(setBookmarks);
+    Notification.show('Bookmark removed', { theme: 'primary' });
   };
 
   return (

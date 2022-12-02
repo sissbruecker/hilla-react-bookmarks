@@ -26,7 +26,7 @@ export default function EditView() {
 
   const handleSave = async () => {
     await BookmarkEndpoint.save(editedBookmark);
-    Notification.show('Bookmark saved');
+    Notification.show('Bookmark saved', {theme: 'primary'});
     navigate('/');
   };
 
