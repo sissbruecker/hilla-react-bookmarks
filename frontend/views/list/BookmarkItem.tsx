@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 
 interface BookmarkItemProps {
   bookmark: Bookmark;
+  onDelete: (bookmark: Bookmark) => void;
 }
 
-export function BookmarkItem({ bookmark }: BookmarkItemProps) {
+export function BookmarkItem({ bookmark, onDelete }: BookmarkItemProps) {
   const title = bookmark.title || bookmark.url;
   const description = bookmark.description;
 
@@ -30,7 +31,9 @@ export function BookmarkItem({ bookmark }: BookmarkItemProps) {
         <Link to={`/edit/${bookmark.id}`}>
           <Button theme="secondary">Edit</Button>
         </Link>
-        <Button theme="secondary error">Delete</Button>
+        <Button theme="secondary error" onClick={() => onDelete(bookmark)}>
+          Delete
+        </Button>
       </HorizontalLayout>
     </div>
   );

@@ -29,4 +29,8 @@ public class BookmarkEndpoint {
     public @Nonnull Bookmark save(@Nonnull Bookmark bookmark) {
         return bookmarkRepository.save(bookmark);
     }
+
+    public void remove(int bookmarkId) {
+        bookmarkRepository.deleteById(bookmarkId);
+    }
 }

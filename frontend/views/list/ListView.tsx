@@ -10,10 +10,15 @@ export default function ListView() {
     BookmarkEndpoint.search().then(setBookmarks);
   }, []);
 
+  const handleDelete = async (bookmark: Bookmark) => {
+    await BookmarkEndpoint.remove(bookmark.id!);
+    BookmarkEndpoint.search().then(setBookmarks);
+  };
+
   return (
     <div>
       {bookmarks.map((bookmark) => (
-        <BookmarkItem key={bookmark.id} bookmark={bookmark} />
+        <BookmarkItem key={bookmark.id} bookmark={bookmark} onDelete={handleDelete} />
       ))}
     </div>
   );

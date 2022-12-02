@@ -1,11 +1,9 @@
-import { TextField } from '@hilla/react-components/TextField.js';
+import { TextField, WebComponentModule as TextFieldWC } from '@hilla/react-components/TextField.js';
 import { useEffect, useState } from 'react';
 import { TextArea } from '@hilla/react-components/TextArea.js';
 import { Button } from '@hilla/react-components/Button.js';
 import { HorizontalLayout } from '@hilla/react-components/HorizontalLayout.js';
 import { BookmarkEndpoint } from 'Frontend/generated/endpoints';
-import { TextFieldValueChangedEvent } from '@vaadin/text-field';
-import { TextAreaValueChangedEvent } from '@vaadin/text-area';
 import Bookmark from 'Frontend/generated/com/example/application/entities/Bookmark';
 import { Notification } from '@hilla/react-components/Notification.js';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -19,7 +17,9 @@ export default function EditView() {
   useEffect(() => {
     if (bookmarkIdParam) {
       BookmarkEndpoint.getBookmark(parseInt(bookmarkIdParam)).then((bookmark) => {
-        if (bookmark) setEditedBookmark(bookmark);
+        if (bookmark) {
+          setEditedBookmark(bookmark);
+        }
       });
     }
   }, [bookmarkIdParam]);
@@ -35,11 +35,10 @@ export default function EditView() {
       <TextField
         label="URL"
         value={editedBookmark.url}
-        onValueChanged={(e: TextFieldValueChangedEvent) => {
-            console.log('change url', e.detail.value)
+        onInput={(e) => {
           setEditedBookmark({
             ...editedBookmark,
-            url: e.detail.value,
+            url: (e.target as TextFieldWC.TextField).value,
           });
         }}
       ></TextField>
@@ -47,10 +46,10 @@ export default function EditView() {
       <TextField
         label="Title"
         value={editedBookmark.title}
-        onValueChanged={(e: TextFieldValueChangedEvent) =>
+        onInput={(e) =>
           setEditedBookmark({
             ...editedBookmark,
-            title: e.detail.value,
+            title: (e.target as TextFieldWC.TextField).value,
           })
         }
       ></TextField>
@@ -58,10 +57,10 @@ export default function EditView() {
       <TextArea
         label="Description"
         value={editedBookmark.description}
-        onValueChanged={(e: TextAreaValueChangedEvent) =>
+        onInput={(e) =>
           setEditedBookmark({
             ...editedBookmark,
-            description: e.detail.value,
+            description: (e.target as TextFieldWC.TextField).value,
           })
         }
       ></TextArea>
