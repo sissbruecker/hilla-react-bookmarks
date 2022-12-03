@@ -16,6 +16,9 @@ public class Bookmark {
     private String title;
     private String description;
 
+    private String websiteTitle;
+    private String websiteDescription;
+
     public Integer getId() {
         return id;
     }
@@ -46,5 +49,21 @@ public class Bookmark {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getWebsiteTitle() {
+        return websiteTitle;
+    }
+
+    public void setWebsiteTitle(String websiteTitle) {
+        this.websiteTitle = websiteTitle;
+    }
+
+    public String getWebsiteDescription() {
+        return websiteDescription;
+    }
+
+    public void setWebsiteDescription(String websiteDescription) {
+        this.websiteDescription = websiteDescription;
     }
 }

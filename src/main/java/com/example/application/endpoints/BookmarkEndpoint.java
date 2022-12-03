@@ -2,6 +2,8 @@ package com.example.application.endpoints;
 
 import com.example.application.entities.Bookmark;
 import com.example.application.repositories.BookmarkRepository;
+import com.example.application.utils.Scraper;
+import com.example.application.utils.WebsiteMetadata;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
 import dev.hilla.Nonnull;
@@ -47,5 +49,9 @@ public class BookmarkEndpoint {
 
     public void remove(int bookmarkId) {
         bookmarkRepository.deleteById(bookmarkId);
+    }
+
+    public @Nonnull WebsiteMetadata scrape(String url) {
+        return Scraper.scrape(url);
     }
 }

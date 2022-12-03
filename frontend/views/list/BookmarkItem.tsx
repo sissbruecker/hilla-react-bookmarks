@@ -10,8 +10,8 @@ interface BookmarkItemProps {
 }
 
 export function BookmarkItem({ bookmark, onDelete }: BookmarkItemProps) {
-  const title = bookmark.title || bookmark.url;
-  const description = bookmark.description;
+  const title = bookmark.title || bookmark.websiteTitle || bookmark.url;
+  const description = bookmark.description || bookmark.websiteDescription;
 
   return (
     <div className={css.item}>
